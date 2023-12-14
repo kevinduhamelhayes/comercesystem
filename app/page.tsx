@@ -1,10 +1,12 @@
 import Image from 'next/image'
+import Navbar  from '@/components/Navbar'
+import Body from '@/components/Body'
 
 export default function Home() {
   return (
-    
-    <div>
-      <h1>hola</h1>
-    </div>
+    <>
+    <Navbar />
+    <Body/>
+    </>
   )
 }
