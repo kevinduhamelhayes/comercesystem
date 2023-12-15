@@ -1,8 +1,8 @@
 "use client"
 import { useState } from 'react';
 import Link from 'next/link';
-import LoginModal from './LoginModal'; // Assuming LoginModal is in the same directory
-import RegisterModal from './RegisterModal'; // Assuming RegisterModal is in the same directory
+import LoginModal from './LoginModal'; 
+import RegisterModal from './RegisterModal'; 
 
 const Navbar: React.FC = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -41,10 +41,10 @@ const Navbar: React.FC = () => {
               
                 <Link href="/cajas" className="block px-4 py-2 hover:bg-gray-200">Cajas</Link>
 
-                <Link href="/productos" className="block px-4 py-2 hover:bg-gray-200">Productos</Link>
-              <Link href="/agregar-producto" className="block px-4 py-2 hover:bg-gray-200">Agregar Producto</Link>
+                <Link href="/Productos" className="block px-4 py-2 hover:bg-gray-200">Productos</Link>
+              <Link href="/AddProducts" className="block px-4 py-2 hover:bg-gray-200">Agregar Producto</Link>
               <Link href="/edicion-masiva" className="block px-4 py-2 hover:bg-gray-200">Edición Masiva</Link>
-              <Link href="/#body" className="block px-4 py-2 hover:bg-gray-200">Pantalla de Cobro</Link>
+              <Link href="/body" className="block px-4 py-2 hover:bg-gray-200">Pantalla de Cobro</Link>
               </div>
             )}
           </div>
