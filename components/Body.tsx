@@ -1,18 +1,25 @@
 "use client"
 import React, { useState } from 'react';
+
 type Product = {
   unit: number;
   description: string;
   price: number;
+  codigo: string; // Asegúrate de añadir el campo 'codigo' si lo estás utilizando
 };
-// Mock function to simulate fetching product data from a database
-const fetchProductByBarcode = async (barcode) => {
-  // This is a placeholder. Replace with your database query logic.
-  return {
-    unit: 1,
-    description: `Product for ${barcode}`,
-    price: Math.floor(Math.random() * 100) // Random price for demonstration
-  };
+
+const fetchProductByBarcode = async (barcode: string) => {
+  try {
+    const response = await fetch(`/api/getProductByBarcode?barcode=${barcode}`);
+    if (!response.ok) {
+      throw new Error('Product not found');
+    }
+    const product = await response.json();
+    return product;
+  } catch (error) {
+    console.error('Error fetching product:', error);
+    return null;
+  }
 };
 
 const PantallaDeCobro: React.FC = () => {
@@ -22,11 +29,33 @@ const PantallaDeCobro: React.FC = () => {
 
   const handleBarcodeSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const product = await fetchProductByBarcode(barcode);
-    setProducts([...products, product]);
-    setTotal(total + product.price);
-    setBarcode(''); // Clear the barcode input
+    const fetchedProduct = await fetchProductByBarcode(barcode);
+
+    if (fetchedProduct) {
+      // Verifica si el producto ya está en la lista
+      const existingProductIndex = products.findIndex(p => p.codigo === barcode);
+
+      if (existingProductIndex >= 0) {
+        // Actualiza la cantidad si el producto ya existe
+        const updatedProducts = products.map((p, index) => {
+          if (index === existingProductIndex) {
+            return { ...p, unit: p.unit + 1 };
+          }
+          return p;
+        });
+        setProducts(updatedProducts);
+      } else {
+        // Añade el nuevo producto a la lista
+        setProducts([...products, { ...fetchedProduct, unit: 1 }]);
+      }
+
+      // Actualiza el total
+      setTotal(total + fetchedProduct.price);
+    }
+
+    setBarcode(''); // Limpia el input del código de barras
   };
+
   return (
     <div className="p-4">
       <form onSubmit={handleBarcodeSubmit}>

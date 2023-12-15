@@ -38,9 +38,13 @@ const Navbar: React.FC = () => {
             {/* Dropdown Menu */}
             {isDropdownOpen && (
               <div className="absolute mt-4 bg-white text-gray-800 shadow-lg rounded">
-                <Link href="/productos" className="block px-4 py-2">Productos</Link>
-                <Link href="/cajas" className="block px-4 py-2">Cajas</Link>
-                <Link href="/#body" className="block px-4 py-2">Pantalla de Cobro</Link>
+              
+                <Link href="/cajas" className="block px-4 py-2 hover:bg-gray-200">Cajas</Link>
+
+                <Link href="/productos" className="block px-4 py-2 hover:bg-gray-200">Productos</Link>
+              <Link href="/agregar-producto" className="block px-4 py-2 hover:bg-gray-200">Agregar Producto</Link>
+              <Link href="/edicion-masiva" className="block px-4 py-2 hover:bg-gray-200">Edición Masiva</Link>
+              <Link href="/#body" className="block px-4 py-2 hover:bg-gray-200">Pantalla de Cobro</Link>
               </div>
             )}
           </div>
