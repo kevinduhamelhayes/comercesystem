@@ -1,23 +1,22 @@
-"use client"
-
 import React, { useState } from 'react';
+import useModal from '@/app/hooks/useModal'; // Asegúrate de que la ruta de importación sea correcta
 
-const LoginModal = ({ isOpen, onClose }) => {
+const LoginModal = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const { isModalOpen, openModal, closeModal, modalRef } = useModal();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle login logic here
     console.log('Login:', username, password);
-    onClose(); // Close modal after login
+    closeModal(); 
   };
 
-  if (!isOpen) return null;
+  if (!isModalOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
-      <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+      <div ref={modalRef} className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
         <h3 className="text-xl semibold mb-4">Login</h3>
         <form onSubmit={handleSubmit}>
           <input 
@@ -35,8 +34,8 @@ const LoginModal = ({ isOpen, onClose }) => {
             onChange={(e) => setPassword(e.target.value)} 
           />
           <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded">Login</button>
-        </form>
-        <button onClick={onClose} className="mt-2 text-sm text-gray-500">Close</button>
+          </form>
+        <button onClick={closeModal} className="mt-2 text-sm text-gray-500">Close</button>
       </div>
     </div>
   );
